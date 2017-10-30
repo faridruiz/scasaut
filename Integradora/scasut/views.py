@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from .models import Usuario
 from .models import Maestro
 from .models import LoginForm
@@ -44,9 +44,10 @@ def login(request):
 	Usuario.objects
 	ret = Usuario.objects.filter(usuario=NombreUsuario, contrasena=Contrasena).count()
 	if ret == 1:
-		return render(request,'SCASA-UT/docs/MenuDefault.html')
+		return redirect('/MenuDefault')
 	else:
-		return render(request,'SCASA-UT/index.html')
+		return redirect('/')
+
 def alta_usuario(request):	
 	user = Usuario.objects.all()
 	context = {'usuario':user}
