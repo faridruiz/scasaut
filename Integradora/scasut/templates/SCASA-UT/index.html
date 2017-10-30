@@ -1,0 +1,44 @@
+{% load bootstrap3 %}
+{% load staticfiles %}
+<!DOCTYPE html>
+<html >
+<head>
+	<meta charset="UTF-8">
+	<title>Login Form</title>
+	
+	<!-- <link rel="stylesheet" href="css/login - normalize.css"> -->
+	<link rel="stylesheet" href="{% static 'css/login.css' %}">
+	
+	
+
+	<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/prefixfree/1.0.7/prefixfree.min.js"></script> -->
+	<script>
+		function redirigir(){
+			// window.location = '/MenuDefault';
+		}
+	</script>
+</head>
+
+{% block content %}
+<body>
+	<div class="login-page">
+		<div class="form">
+			<form class="login-form" action="login/" method="post">
+				{% csrf_token %}
+				{% if form.errors %}
+				<p>Tu nombre de usuario y/o contraseña no concuerdan.</p>
+				{% endif %}
+				<label for="user" style="font-size:larger;">Inicio de sesión</label>
+				<hr>
+				<input id="usuario" name="usuario" type="text" placeholder="Usuario" required="required" name="username" />
+				<input type="password" id="contrasena" name="contrasena" placeholder="Contraseña" required="Porfavor, ingrese una contraseña." name="password"/>
+				<button>Entrar</button>
+				<!-- <p class="message">Not registered? <a href="#">Create an account</a></p> --><div>
+
+				</form>
+			</div>
+		</div>
+
+		{% endblock %}
+	</body>
+	</html>
