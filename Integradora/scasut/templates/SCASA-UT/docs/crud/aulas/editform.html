@@ -1,0 +1,44 @@
+{% include "SCASA-UT\docs\encabezado.html" %}    
+{% include "SCASA-UT\docs\menu-lateral.html" %}    
+<form class="form-horizontal" action='/aulas/edicion/modificar/{{ aula.id }}' method="POST">
+  {% csrf_token %}
+  <table align="center" style="width:30%;min-width: 334px!important;padding-left: 50%;" align="center">
+    <tr >
+      <td style="width:61px;">
+      </td>
+      <td >
+        <fieldset>
+          <div id="legend">
+            <legend class="" align="center">Editar Aula</legend>
+          </div>
+          <div class="control-group">
+            <!-- Username -->
+            <label class="control-label"  for="username">Nombre del aula</label>
+            <div class="controls">
+              <input type="text" id="username" name="username" placeholder="" class="input-xlarge" required="required" style="width: 90%;" value="{{ aula.nombre }}">
+              <p class="help-block">Nombre con el que se identifica al aula.</p>
+            </div>
+          </div>
+
+          <div class="control-group">
+            <!-- E-mail -->
+            <label class="control-label" for="email">Descripción</label>
+            <div class="controls">
+              <input type="text" id="email" name="email" placeholder="" class="input-xlarge" required="required" style="width: 90%;" value="{{ aula.descripcion }}">
+              <p class="help-block">Descripción del aula.</p>
+            </div>
+          </div>
+
+          <div class="control-group">
+            <!-- Button -->
+            <div class="controls">
+              <button class="btn">Modificar</button>
+              <a class="btn btn-danger" href="/aulas">Cancelar</a>
+
+            </div>
+          </div>
+        </fieldset>
+      </td>
+    </tr>
+  </table>    
+</form>
