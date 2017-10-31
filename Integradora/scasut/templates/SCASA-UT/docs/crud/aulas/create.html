@@ -1,7 +1,7 @@
 
 {% include "SCASA-UT\docs\encabezado.html" %}    
 {% include "SCASA-UT\docs\menu-lateral.html" %}    
-<form class="form-horizontal" action='../Aulas/nuevo/create' method="POST">
+<form class="form-horizontal" action='/aulas/nuevo/crear' method="POST">
   {% csrf_token %}
   <table align="center" style="width:30%;min-width: 334px!important;padding-left: 50%;" align="center">
     <tr >
@@ -34,6 +34,7 @@
             <!-- Button -->
             <div class="controls">
               <button class="btn">Crear</button>
+              <a class="btn btn-danger" href="/aulas">Cancelar</a>
 
             </div>
           </div>

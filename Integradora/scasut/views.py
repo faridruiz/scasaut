@@ -57,3 +57,33 @@ def usuarios_edicion_eliminar(request, id):
 	usuario = Usuario.objects.get(id=id)
 	usuario.delete()
 	return redirect('/usuarios')
+
+def aulas_nuevo(request):
+	return render(request, 'SCASA-UT/docs/crud/aulas/create.html')
+
+def aulas_nuevo_crear(request):
+	aula = Aula(
+		nombre=request.POST['username'],
+		descripcion=request.POST['email'],
+	)
+	aula.save()
+	return redirect('/aulas')
+
+def aulas(request):
+	return render(request, 'SCASA-UT/docs/crud/aulas/update.html', {'aulas': Aula.objects.all()})
+
+def aulas_edicion(request, id):
+	aula = Aula.objects.get(id=id)
+	return render(request, 'SCASA-UT/docs/crud/aulas/editform.html', {'aula': aula})
+
+def aulas_edicion_modificar(request, id):
+	aula = Aula.objects.get(id=id)
+	aula.nombre = request.POST['username']
+	aula.descripcion = request.POST['email']
+	aula.save()
+	return redirect('/aulas')
+
+def aulas_edicion_eliminar(request, id):
+	aula = Aula.objects.get(id=id)
+	aula.delete()
+	return redirect('/aulas')

@@ -11,15 +11,16 @@ urlpatterns = [
     url(r'^usuarios/nuevo$', views.usuarios_nuevo), #vista creada
     url(r'^usuarios/nuevo/crear$', views.usuarios_nuevo_crear), #vista creada
     url(r'^usuarios/$', views.usuarios), #vista creada
-    url(r'^usuarios/edicion$', views.usuarios_edicion),
+    url(r'^usuarios/edicion/(?P<id>\d+)$', views.usuarios_edicion),
     url(r'^usuarios/edicion/modificar/(?P<id>\d+)$', views.usuarios_edicion_modificar), #vista creada
     url(r'^usuarios/edicion/eliminar/(?P<id>\d+)$', views.usuarios_edicion_eliminar), #vista creada
 
-#    url(r'^aulas/nuevo$', views.aulas_nuevo),
-#    url(r'^aulas/nuevo/crear/(?P<id>\d+)$', views.aulas_nuevo_crear),
-#    url(r'^aulas/edicion$', views.aulas_edicion),
-#    url(r'^aulas/edicion/modificar/(?P<id>\d+)$', views.aulas_edicion_modificar),
-#    url(r'^aulas/edicion/eliminar/(?P<id>\d+)$', views.aulas_edicion_eliminar),
+    url(r'^aulas/nuevo$', views.aulas_nuevo),
+    url(r'^aulas/nuevo/crear$', views.aulas_nuevo_crear),
+    url(r'^aulas/$', views.aulas),
+    url(r'^aulas/edicion/(?P<id>\d+)$', views.aulas_edicion),
+    url(r'^aulas/edicion/modificar/(?P<id>\d+)$', views.aulas_edicion_modificar),
+    url(r'^aulas/edicion/eliminar/(?P<id>\d+)$', views.aulas_edicion_eliminar),
 
 #    url(r'^grupos/nuevo$', views.grupos_nuevo),
 #    url(r'^grupos/nuevo/crear/(?P<id>\d+)$', views.grupos_nuevo_crear),
