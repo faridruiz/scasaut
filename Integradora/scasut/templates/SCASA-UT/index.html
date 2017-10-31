@@ -23,7 +23,7 @@
 <body>
 	<div class="login-page">
 		<div class="form">
-			<form class="login-form" action="login/" method="post">
+			<form class="login-form" action="/login/verificar" method="post">
 				{% csrf_token %}
 				{% if form.errors %}
 				<p>Tu nombre de usuario y/o contraseña no concuerdan.</p>

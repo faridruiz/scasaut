@@ -2,18 +2,39 @@ from django.conf.urls import include, url
 from . import views
 from django.core.urlresolvers import reverse_lazy
 
-urlpatterns = [
-    url(r'^$', views.render_login),
-    url(r'^MenuDefault/$', views.menudefault),
-    url(r'^Grupos/nuevo$', views.grupos_c),
-    url(r'^Grupos/modificar$', views.grupos_u),
-    url(r'^Usuarios/nuevo$', views.usuarios_c),
-    url(r'^Usuarios/modificar$', views.usuarios_u),
-    url(r'^Horarios/$', views.horarios),
-    url(r'^Aulas/modificar$', views.aula_u),
-    url(r'^Aulas/nuevo$', views.aula_c),
-    url(r'^Ciclo_Escolar/$', views.cicloescolar),    
-    url(r'^login/$', views.login),
-    url(r'^crearUsuario/$', views.alta_usuario),
-]
  
+urlpatterns = [
+    url(r'^$', views.start), #vista creada
+    url(r'^login/$', views.login), #vista creada
+    url(r'^login/verificar$', views.login_verificar), #vista creada
+    url(r'^dashboard/$', views.dashboard), #vista creada
+    url(r'^usuarios/nuevo$', views.usuarios_nuevo), #vista creada
+    url(r'^usuarios/nuevo/crear$', views.usuarios_nuevo_crear), #vista creada
+    url(r'^usuarios/$', views.usuarios), #vista creada
+    url(r'^usuarios/edicion$', views.usuarios_edicion),
+    url(r'^usuarios/edicion/modificar/(?P<id>\d+)$', views.usuarios_edicion_modificar), #vista creada
+    url(r'^usuarios/edicion/eliminar/(?P<id>\d+)$', views.usuarios_edicion_eliminar), #vista creada
+
+#    url(r'^aulas/nuevo$', views.aulas_nuevo),
+#    url(r'^aulas/nuevo/crear/(?P<id>\d+)$', views.aulas_nuevo_crear),
+#    url(r'^aulas/edicion$', views.aulas_edicion),
+#    url(r'^aulas/edicion/modificar/(?P<id>\d+)$', views.aulas_edicion_modificar),
+#    url(r'^aulas/edicion/eliminar/(?P<id>\d+)$', views.aulas_edicion_eliminar),
+
+#    url(r'^grupos/nuevo$', views.grupos_nuevo),
+#    url(r'^grupos/nuevo/crear/(?P<id>\d+)$', views.grupos_nuevo_crear),
+#    url(r'^grupos/edicion$', views.grupos_edicion),
+#    url(r'^grupos/edicion/modificar/(?P<id>\d+)$', views.grupos_edicion_modificar),
+#    url(r'^grupos/edicion/eliminar/(?P<id>\d+)$', views.grupos_edicion_eliminar),
+
+#    url(r'^horarios/$', views.horarios),
+#    url(r'^horarios/nuevo/(?P<id>\d+)$', views.horarios_nuevo),
+#    url(r'^horarios/edicion/(?P<id>\d+)$', views.horarios_edicion),
+#    url(r'^horarios/eliminar/(?P<id>\d+)$', views.horarios_eliminar),
+
+#    url(r'^cicloescolar/$', views.cicloescolar),
+#    url(r'^cicloescolar/nuevo/(?P<id>\d+)$', views.cicloescolar_nuevo),
+#    url(r'^cicloescolar/edicion/(?P<id>\d+)$', views.cicloescolar_edicion),
+#    url(r'^cicloescolar/eliminacion/(?P<id>\d+)$', views.cicloescolar_eliminacion),
+
+]

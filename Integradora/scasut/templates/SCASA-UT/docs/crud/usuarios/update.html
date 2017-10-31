@@ -22,7 +22,7 @@
                     <h3 class="panel-title">Usuarios</h3>
                   </div>
                   <div class="col col-xs-6 text-right">
-                    <button type="button" class="btn btn-sm btn-primary btn-create" onclick="{window.location = 'create.html';}">Crear nuevo usuario</button>
+                    <a href="/usuarios/nuevo" class="btn btn-sm btn-primary btn-create">Crear nuevo usuario</a>
                   </div>
                 </div>
               </div>
@@ -42,7 +42,7 @@
                     <tr>
                       <td align="center">
                         <a class="btn btn-default"><em class="fa fa-pencil"></em></a>
-                        <a class="btn btn-danger"><em class="fa fa-trash"></em></a>
+                        <a class="btn btn-danger" href="/usuarios/edicion/eliminar/{{ usr.id }}"><em class="fa fa-trash"></em></a>
                       </td>
                       <td class="hidden-xs">{{usr.id}}</td>
                       <td>{{usr.usuario}}</td>

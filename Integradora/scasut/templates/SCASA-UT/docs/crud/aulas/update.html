@@ -41,15 +41,17 @@
                     </tr> 
                   </thead>
                   <tbody>
+                    {% for aula in aulas %}
                     <tr>
                       <td align="center">
                         <a class="btn btn-default"><em class="fa fa-pencil"></em></a>
                         <a class="btn btn-danger"><em class="fa fa-trash"></em></a>
                       </td>
                       <td class="hidden-xs">1</td>
-                      <td>Laboratorio de informática</td>
-                      <td>Es el laboratorio de TICS</td>
+                      <td>{{ aula.nombre }}</td>
+                      <td>{{ aula.descripcion }}</td>
                     </tr>
+                    {% endfor %}
                   </tbody>
                 </table>
 
