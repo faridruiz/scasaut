@@ -21,7 +21,9 @@ class Horario(models.Model):
 
 
 class Grupo(models.Model):
-    idhorario = models.ForeignKey(Horario)
+    nombre = models.CharField(max_length=32, null=True)
+    descripcion = models.CharField(max_length=100, null=True)
+    #idhorario = models.ForeignKey(Horario)
 
 
 class Maestro(models.Model):

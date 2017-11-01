@@ -1,7 +1,7 @@
 
     {% include "SCASA-UT\docs\encabezado.html" %}    
   {% include "SCASA-UT\docs\menu-lateral.html" %}   
-  <form class="form-horizontal" action='/grupos/nuevo/crear' method="POST">
+  <form class="form-horizontal" action='/grupos/edicion/modificar/{{grupo.id}}' method="POST">
     {% csrf_token %}
     <table align="center" style="width:30%;min-width: 334px!important;">
       <tr>
@@ -11,13 +11,13 @@
         <td>
           <fieldset>
             <div id="legend">
-              <legend class="" align="center">Crear grupo</legend>
+              <legend class="" align="center">Modificar grupo</legend>
             </div>
             <div class="control-group">
               <!-- Username -->
               <label class="control-label"  for="username">Nombre de grupos</label>
               <div class="controls">
-                <input type="text" id="username" name="username" placeholder="" class="input-xlarge" required="required" style="width: 90%;">
+                <input type="text" id="username" name="username" placeholder="" class="input-xlarge" required="required" style="width: 90%;" value="{{grupo.nombre}}">
                 <p class="help-block">Ingrese nombre del grupo</p>
               </div>
             </div>
@@ -26,14 +26,14 @@
               <!-- E-mail -->
               <label class="control-label" for="email">Descripción</label>
               <div class="controls">
-                <input type="text" id="email" name="email" placeholder="" class="input-xlarge" required="required" style="width: 90%;">
+                <input type="text" id="email" name="email" placeholder="" class="input-xlarge" required="required" style="width: 90%;" value="{{grupo.descripcion}}">
                 <p class="help-block">Ingrese la descripción del grupo</p>
               </div>
             </div>
             <div class="control-group">
               <!-- Button -->
               <div class="controls">
-                <button class="btn">Crear</button>
+                <button class="btn">Modificar</button>
                 <a href="/grupos" class="btn btn-danger">Cancelar</a>
 
               </div>

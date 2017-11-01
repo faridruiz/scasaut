@@ -10,7 +10,7 @@
       <div class="container" style="width:95%; position:relative;left:2%;bottom:0px;" align="left">
         <div class="row">    
           <p></p>
-          <h1 align="center">Modificación grupos</h1>
+          <h1 align="center">Catálogo de grupos</h1>
           <hr>
           <p></p>
           <p><a href="https://twitter.com/asked_io" target="_new"></a><a href="https://asked.io/" target="_new"></a>.</p>
@@ -23,7 +23,7 @@
                     <h3 class="panel-title">Grupos</h3>
                   </div>
                   <div class="col col-xs-6 text-right">
-                    <button type="button" class="btn btn-sm btn-primary btn-create" onclick="{window.location = 'create.html';}">Crear nuevo grupo</button>
+                    <a href="/grupos/nuevo" class="btn btn-sm btn-primary btn-create">Crear nuevo grupo</a>
                   </div>
                 </div>
               </div>
@@ -38,35 +38,27 @@
                     </tr> 
                   </thead>
                   <tbody>
+                    {% for grupo in grupos %}
                     <tr>
                       <td align="center">
-                        <a class="btn btn-default"><em class="fa fa-pencil"></em></a>
-                        <a class="btn btn-danger"><em class="fa fa-trash"></em></a>
+                        <a href="/grupos/edicion/{{ grupo.id }}" class="btn btn-default"><em class="fa fa-pencil"></em></a>
+                        <a href="/grupos/edicion/eliminar/{{ grupo.id }}" class="btn btn-danger"><em class="fa fa-trash"></em></a>
                       </td>
                       <td class="hidden-xs">1</td>
-                      <td>TIC'S</td>
-                      <td>Tecnologías de la información y comunicación.</td>
+                      <td>{{ grupo.nombre }}</td>
+                      <td>{{ grupo.descripcion }}</td>
                     </tr>
+                    {% endfor %}
                   </tbody>
                 </table>
 
               </div>
               <div class="panel-footer">
                 <div class="row">
-                  <div class="col col-xs-4">Página 1 de 5
+                  <div class="col col-xs-4">Página 1 de 1
                   </div>
                   <div class="col col-xs-8">
-                    <ul class="pagination hidden-xs pull-right">
-                      <li><a href="#">1</a></li>
-                      <li><a href="#">2</a></li>
-                      <li><a href="#">3</a></li>
-                      <li><a href="#">4</a></li>
-                      <li><a href="#">5</a></li>
-                    </ul>
-                    <ul class="pagination visible-xs pull-right">
-                      <li><a href="#">«</a></li>
-                      <li><a href="#">»</a></li>
-                    </ul>
+                   
                   </div>
                 </div>
               </div>

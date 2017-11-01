@@ -3,6 +3,7 @@ from .models import Usuario
 from .models import Maestro
 from .models import LoginForm
 from .models import Aula
+from .models import Grupo
 from django import forms
 
 
@@ -87,3 +88,33 @@ def aulas_edicion_eliminar(request, id):
 	aula = Aula.objects.get(id=id)
 	aula.delete()
 	return redirect('/aulas')
+
+def grupos_nuevo(request):
+	return render(request, 'SCASA-UT/docs/crud/grupos/create.html')
+
+def grupos_nuevo_crear(request):
+	grupo = Grupo(
+		nombre=request.POST['username'],
+		descripcion=request.POST['email'],
+	)
+	grupo.save()
+	return redirect('/grupos')
+
+def grupos(request):
+	return render(request, 'SCASA-UT/docs/crud/grupos/update.html', {'grupos': Grupo.objects.all()})
+
+def grupos_edicion(request, id):
+	grupo = Grupo.objects.get(id=id)
+	return render(request, 'SCASA-UT/docs/crud/grupos/editform.html', {'grupo': grupo})
+
+def grupos_edicion_modificar(request, id):
+	grupo = Grupo.objects.get(id=id)
+	grupo.nombre = request.POST['username']
+	grupo.descripcion = request.POST['email']
+	grupo.save()
+	return redirect('/grupos')
+
+def grupos_edicion_eliminar(request, id):
+	grupo = Grupo.objects.get(id=id)
+	grupo.delete()
+	return redirect('/grupos')
