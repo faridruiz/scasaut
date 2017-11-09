@@ -1,4 +1,5 @@
 from django.shortcuts import render, redirect
+from django.http import HttpResponse
 from .models import Usuario
 from .models import Maestro
 from .models import LoginForm
@@ -29,10 +30,12 @@ def usuarios_nuevo(request):
 	return render(request, 'SCASA-UT/docs/crud/usuarios/create.html', {'maestros': Maestro.objects.all()})
 
 def usuarios_nuevo_crear(request):
+	maestro = Maestro(nombre = request.POST['maestro'])
+	maestro.save()
 	usuariosnuevo = Usuario(
 		usuario = request.POST['usuario'],
 		contrasena= request.POST['contrasena'],
-		idmaestro = Maestro.objects.get(id=request.POST['maestro'])
+		idmaestro = maestro
 	)
 	usuariosnuevo.save()
 	return redirect('/usuarios')
@@ -42,15 +45,16 @@ def usuarios(request):
 	context = {'usuario':user}
 	return render(request, 'SCASA-UT/docs/crud/usuarios/update.html', context)
 
-def usuarios_edicion(request):
-	#TODO: anexar vista a formulario de edición
-	pass
+def usuarios_edicion(request, id):
+	usuario = Usuario.objects.get(id=id)
+	return render(request, 'SCASA-UT/docs/crud/usuarios/editform.html', {'usuario':usuario})
 
 def usuarios_edicion_modificar(request, id):
 	usuario = Usuario.objects.get(id=id)
 	usuario.usuario = request.POST['usuario']
-	usuario.contrasena = request['contrasena']
-	usuario.idmaestro = Maestro.objects.get(id=request['maestro'])
+	usuario.contrasena = request.POST['contrasena']
+	usuario.idmaestro.nombre = request.POST['maestro']
+	usuario.idmaestro.save()
 	usuario.save()
 	return redirect('/usuarios')
 
@@ -118,3 +122,12 @@ def grupos_edicion_eliminar(request, id):
 	grupo = Grupo.objects.get(id=id)
 	grupo.delete()
 	return redirect('/grupos')
+def verificarPin(request, pin):
+	try:
+		usuario = Usuario.objects.get(contrasena=pin);
+		if usuario is None:
+			return HttpResponse('false');
+		else:
+			return HttpResponse('true');
+	except:
+		return HttpResponse('false');

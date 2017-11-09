@@ -2,70 +2,65 @@
 {% include "SCASA-UT\docs\encabezado.html" %}    
 {% include "SCASA-UT\docs\menu-lateral.html" %}   
 {% block content %}
-  <table align="center" style="width:30%;min-width: 334px!important;">
-    <tr>
+<table align="center" style="width:30%;min-width: 334px!important;">
+  <tr>
 
-      <td style="width:61px;">
-      </td>
-      <td>
-        <form action="/usuarios/nuevo/crear" method="POST">
-          {% csrf_token %}
-          <div id="legend">
-            <legend class="" align="center">Crear usuario</legend>
+    <td style="width:61px;">
+    </td>
+    <td>
+      <form action="/usuarios/nuevo/crear" method="POST">
+        {% csrf_token %}
+        <div id="legend">
+          <legend class="" align="center">Crear usuario</legend>
+        </div>
+        <div class="control-group">
+          <!-- Username -->
+          <label class="control-label" for="username">Nombre maestro</label>
+          <div class="controls">
+            <input type="text" id="maestro" name="maestro" class="input-xlarge" style="width:90%;">
+            <!-- <input type="text" id="maestro" name="username" placeholder="" class="input-xlarge" required="required" style="width: 90%;"> -->
+            <p class="help-block">Ingrese nombre y apellidos del maestro.</p>
           </div>
-          <div class="control-group">
-            <!-- Username -->
-            <label class="control-label" for="username">Nombre maestro</label>
-            <div class="controls">
-              <select id="maestro" name='maestro' style="width:90%;">
-                {% for maestro in maestros%}
-                <option value="{{maestro.id}}">{{maestro.nombre}}</option>
-                {% endfor %}   
+        </div>
 
-              </select>
-              <!-- <input type="text" id="maestro" name="username" placeholder="" class="input-xlarge" required="required" style="width: 90%;"> -->
-              <p class="help-block">Ingrese nombre y apellidos del maestro.</p>
-            </div>
+        <div class="control-group">
+          <!-- E-mail -->
+          <label class="control-label" for="usuario">Usuario</label>
+          <div class="controls">
+            <input type="text" id="usuario" name="usuario" placeholder="" class="input-xlarge" required="required" style="width: 90%;">
+            <p class="help-block">Ingrese el usuario que se le asignara al maestro</p>
           </div>
+        </div>
 
-          <div class="control-group">
-            <!-- E-mail -->
-            <label class="control-label" for="usuario">Usuario</label>
-            <div class="controls">
-              <input type="text" id="usuario" name="usuario" placeholder="" class="input-xlarge" required="required" style="width: 90%;">
-              <p class="help-block">Ingrese el usuario que se le asignara al maestro</p>
-            </div>
+        <div class="control-group">
+          <!-- Password-->
+          <label class="control-label" for="contrasena">Contraseña</label>
+          <div class="controls">
+            <input type="password" id="contrasena" name="contrasena"  minlength="4" maxlength="4" placeholder="" class="input-xlarge" required="required" style="width: 90%;">
+            <p class="help-block">Ingrese contraseña para el usuario. Mínimo 4 caracteres</p>
           </div>
+        </div>
 
-          <div class="control-group">
-            <!-- Password-->
-            <label class="control-label" for="contrasena">Contraseña</label>
-            <div class="controls">
-              <input type="password" id="contrasena" name="contrasena"  minlength="4" placeholder="" class="input-xlarge" required="required" style="width: 90%;">
-              <p class="help-block">Ingrese contraseña para el usuario. Mínimo 4 caracteres</p>
-            </div>
+        <div class="control-group">
+          <!-- Password -->
+          <label class="control-label"  for="password_confirm">Contraseña (Confirme)</label>
+          <div class="controls">
+            <input type="password" id="password_confirm" name="password_confirm" minlength="4" maxlength="4" placeholder="" class="input-xlarge" required="required" style="width: 90%;">
+            <p class="help-block">Confirme la contraseña</p>
           </div>
+        </div>
 
-          <div class="control-group">
-            <!-- Password -->
-            <label class="control-label"  for="password_confirm">Contraseña (Confirme)</label>
-            <div class="controls">
-              <input type="password" id="password_confirm" name="password_confirm" placeholder="" class="input-xlarge" required="required" style="width: 90%;">
-              <p class="help-block">Confirme la contraseña</p>
-            </div>
+        <div class="control-group">
+          <!-- Button -->
+          <div class="controls">
+            <button  class="btn">Crear</button>            
+            <a class="btn btn-danger" href="/usuarios">Cancelar</a>
           </div>
-
-          <div class="control-group">
-            <!-- Button -->
-            <div class="controls">
-              <button  class="btn">Crear</button>
-
-            </div>
-          </div>
-        </form>
-      </td>
-    </tr>
-  </table>    
+        </div>
+      </form>
+    </td>
+  </tr>
+</table>    
 
 {% endblock %}
 <script>
