@@ -42,7 +42,7 @@ class Usuario(models.Model):
     usuario = models.CharField(max_length=20)
     contrasena = models.IntegerField()    
     idmaestro = models.ForeignKey(Maestro)
-    EsAdministrador = models.BooleanField(default = False);
+    EsAdministrador = models.BooleanField(default = False)
 
 class LoginForm(forms.Form):
     username = forms.CharField(max_length=255, required=True)

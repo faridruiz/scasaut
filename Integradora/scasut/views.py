@@ -122,12 +122,23 @@ def grupos_edicion_eliminar(request, id):
 	grupo = Grupo.objects.get(id=id)
 	grupo.delete()
 	return redirect('/grupos')
+
 def verificarPin(request, pin):
 	try:
-		usuario = Usuario.objects.get(contrasena=pin);
+		usuario = Usuario.objects.get(contrasena=pin)
 		if usuario is None:
 			return HttpResponse('false');
 		else:
 			return HttpResponse('true');
 	except:
 		return HttpResponse('false');
+
+def registroHuella(request, pin):
+	try:
+		usuarios = Usuario.objects.get(contrasena = pin)
+		if usuarios is None:
+			return HttpResponse('No existe')
+		else:
+			return HttpResponse(usuarios.id)
+	except:
+		return HttpResponse('No existe')
