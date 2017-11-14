@@ -7,7 +7,6 @@ from .models import Aula
 from .models import Grupo
 from django import forms
 
-
 def start(request):
 	return redirect('/login')
 
@@ -142,3 +141,27 @@ def registroHuella(request, pin):
 			return HttpResponse(usuarios.id)
 	except:
 		return HttpResponse('No existe')
+
+def scheduler(request):
+	try:
+		aulas = Aula.objects.all()
+		maestros = Maestro.objects.all()
+		grupos = Grupo.objects.all()
+	except Exception as e:
+		raise
+	else:
+		pass
+	finally:
+		pass
+	DiaSemana = ['Lunes',
+    'Martes',
+    'Miercoles',
+    'Jueves',
+    'Viernes',
+    'Sabado',
+    'Domingo']
+
+	numeroHoras = []
+	for i in range(8,19):
+		numeroHoras.append(i)
+	return render(request, 'SCASA-UT/docs/crud/horarios/scheduler.html', {'horas': numeroHoras, 'dias': DiaSemana, 'aulas': aulas, 'grupos':grupos,'maestros':maestros})

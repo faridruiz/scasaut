@@ -31,6 +31,7 @@ urlpatterns = [
     url(r'^grupos/edicion/eliminar/(?P<id>\d+)$', views.grupos_edicion_eliminar),
     url(r'^verificarPin/(?P<pin>\d+)$', views.verificarPin),
     url(r'^registroHuella/(?P<pin>\d+)$', views.registroHuella),
+    url(r'^scheduler/$', views.scheduler),
 #    url(r'^horarios/$', views.horarios),
 #    url(r'^horarios/nuevo/(?P<id>\d+)$', views.horarios_nuevo),
 #    url(r'^horarios/edicion/(?P<id>\d+)$', views.horarios_edicion),
