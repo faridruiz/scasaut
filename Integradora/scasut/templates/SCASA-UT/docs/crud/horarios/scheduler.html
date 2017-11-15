@@ -1,0 +1,82 @@
+{% include "SCASA-UT\docs\encabezado.html" %}    
+{% include "SCASA-UT\docs\menu-lateral.html" %}  
+{% load staticfiles %}
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="{% static 'css/scheduler.css' %}">
+<div style="position:absolute;width:94%; padding-left: 10%;left:5%;bottom:0;top:80;padding-top: 0px;height: 600px;">
+  <div class="control-group">
+    <select class="form-control" id="sel1" style="width: 20%;margin-bottom:10px;">
+      <option selected="selected"> Seleccione un aula
+      </option>
+      {% for aula in aulas %}
+      <option>{{aula.nombre}}</option>        
+      {% endfor %}
+    </select>
+    <!-- Button -->
+    <div class="controls" style="width: 20%;position:absolute;top:0%; left:30%;">
+      <button class="btn">Guardar cambios</button>
+    </div>
+  </div>
+    <table>
+      <thead>
+        <tr>
+          <th></th>
+          <th>
+            <span class="long" align="center">Lunes</span>
+            <span class="short">Lun</span>
+          </th>
+          <th>
+            <span class="long">Martes</span>
+            <span class="short">Mar</span>
+          </th>
+          <th>
+            <span class="long" align="center">Miércoles</span>
+            <span class="short" >Mier</span>
+          </th>
+          <th>
+            <span class="long" align="center">Jueves</span>
+            <span class="short">Jue</span>
+          </th>
+          <th>
+            <span class="long" align="center">Viernes</span>
+            <span class="short">Vie</span>
+          </th>
+          <th>
+            <span class="long" align="center">Sábado</span>
+            <span class="short">Sab</span>
+          </th>
+          <th>
+            <span class="long" align="center">Domingo</span>
+            <span class="short">Dom</span>
+          </th>
+        </tr>
+      </thead>
+     {% for hora in horas %}
+      <tbody>
+        <tr>
+          <td class="hour" rowspan="1"><span>{{hora}}:00 hs</span></td>
+          {% for dia in dias %}
+          <td class="hour">
+
+            <select style="width:40%;">
+              <option selected="selected">Seleccione maestro</option>
+              {% for maestro in maestros%}
+              <option>{{maestro.nombre}}</option>
+              {% endfor %}
+            </select>
+            <select style="width:40%;">
+              <option selected="selected">Seleccione grupo</option>
+              {% for grupo in grupos%}
+              <option>{{grupo.nombre}}</option>
+              {% endfor %}
+            </select>
+          </td>
+          {% endfor %}
+        </tr>
+        <tr>
+        </tbody>
+
+        {% endfor %}
+      </table>
+    </div>
