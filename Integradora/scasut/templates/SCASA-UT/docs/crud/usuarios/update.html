@@ -1,4 +1,3 @@
-
 {% include "SCASA-UT\docs\encabezado.html" %}    
 {% include "SCASA-UT\docs\menu-lateral.html" %}   
 <table  style="width:100%;">
@@ -33,7 +32,6 @@
                       <th><em class="fa fa-cog"></em></th>
                       <th class="hidden-xs">ID</th>
                       <th>Usuario</th>
-                      <th>Maestro</th>
                       <th>Horario</th>
                     </tr> 
                   </thead>
@@ -45,8 +43,7 @@
                         <a class="btn btn-danger" href="/usuarios/edicion/eliminar/{{ usr.id }}"><em class="fa fa-trash"></em></a>
                       </td>
                       <td class="hidden-xs">{{usr.id}}</td>
-                      <td>{{usr.usuario}}</td>
-                      <td>{{usr.idmaestro.nombre}}</td>
+                      <td>{{usr.username}}</td>
                       <td><a href="#">Ver</a></td>
                     </tr>
                     {% endfor %}

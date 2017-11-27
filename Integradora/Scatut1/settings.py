@@ -55,7 +55,7 @@ ROOT_URLCONF = 'Scatut1.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, 'scasut/templates')]
+        'DIRS': [os.path.join(BASE_DIR, 'templates')]
         ,
         'APP_DIRS': True,
         'OPTIONS': {
@@ -121,4 +121,8 @@ USE_TZ = True
 STATIC_URL = '/static/'
 PROJECT_ROOT = os.path.dirname(os.path.abspath(__file__))
 STATIC_ROOT = os.path.join(PROJECT_ROOT, 'static')
+SETTINGS_PATH = os.path.dirname(os.path.dirname(__file__))
 
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, "static"),
+]

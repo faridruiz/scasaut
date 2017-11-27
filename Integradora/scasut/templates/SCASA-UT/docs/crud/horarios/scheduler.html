@@ -1,23 +1,22 @@
 {% include "SCASA-UT\docs\encabezado.html" %}    
 {% include "SCASA-UT\docs\menu-lateral.html" %}  
 {% load staticfiles %}
+<form method="post">{% csrf_token %}
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="{% static 'css/scheduler.css' %}">
+  <div style="position:absolute;width:94%; padding-left: 10%;left:5%;bottom:0;top:80;padding-top: 0px;height: 600px;">
+    <div class="control-group">
+      <select class="form-control" id="sel1" style="width: 20%;margin-bottom:10px;">
 
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="stylesheet" href="{% static 'css/scheduler.css' %}">
-<div style="position:absolute;width:94%; padding-left: 10%;left:5%;bottom:0;top:80;padding-top: 0px;height: 600px;">
-  <div class="control-group">
-    <select class="form-control" id="sel1" style="width: 20%;margin-bottom:10px;">
-      <option selected="selected"> Seleccione un aula
-      </option>
-      {% for aula in aulas %}
-      <option>{{aula.nombre}}</option>        
-      {% endfor %}
-    </select>
-    <!-- Button -->
-    <div class="controls" style="width: 20%;position:absolute;top:0%; left:30%;">
-      <button class="btn">Guardar cambios</button>
+        {% for aula in aulas %}
+        <option id="idaula" name="idaula" value="{{aula.id}}">{{aula.nombre}}</option>        
+        {% endfor %}
+      </select>
+      <!-- Button -->
+      <div class="controls" style="width: 20%;position:absolute;top:0%; left:30%;">
+        <input type="submit" class="btn" text="Guardar">
+      </div>
     </div>
-  </div>
     <table>
       <thead>
         <tr>
@@ -52,31 +51,36 @@
           </th>
         </tr>
       </thead>
-     {% for hora in horas %}
+      {% for hora in horas %}
       <tbody>
-        <tr>
+        <tr id="hora" value="hora" name="hora">
           <td class="hour" rowspan="1"><span>{{hora}}:00 hs</span></td>
           {% for dia in dias %}
           <td class="hour">
-
-            <select style="width:40%;">
-              <option selected="selected">Seleccione maestro</option>
+            <select style="width:80%;">
+              <option selected="selected" >Seleccione maestro</option>
               {% for maestro in maestros%}
-              <option>{{maestro.nombre}}</option>
+              <option id="idmaestro" name="idmaestro" value="{{maestro.id}}">{{maestro.nombre}}</option>
               {% endfor %}
             </select>
-            <select style="width:40%;">
+            <div>              
+              <i class="fa fa-check" aria-hidden="true" >
+
+                <button type="button" onclick="myFunction()">Submit</button>
+              </i>
+            </div>
+            <!-- <select style="width:40%;">
               <option selected="selected">Seleccione grupo</option>
               {% for grupo in grupos%}
-              <option>{{grupo.nombre}}</option>
+              <option id="idgrupo" name="idgrupo" value="{{grupo.id}}">{{grupo.nombre}}</option>
               {% endfor %}
-            </select>
+            </select> -->
           </td>
           {% endfor %}
         </tr>
-        <tr>
-        </tbody>
+      </tbody>
 
-        {% endfor %}
-      </table>
-    </div>
+      {% endfor %}
+    </table>
+  </div>
+</form>

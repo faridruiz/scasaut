@@ -2,10 +2,9 @@ from django.conf.urls import include, url
 from . import views
 from django.core.urlresolvers import reverse_lazy
 
- 
 urlpatterns = [
     url(r'^$', views.start), #vista creada
-    url(r'^login/$', views.login), #vista creada
+    url(r'^login/$', views.login_inicio), #vista creada
     url(r'^login/verificar$', views.login_verificar), #vista creada
     url(r'^dashboard/$', views.dashboard), #vista creada
 
@@ -23,15 +22,18 @@ urlpatterns = [
     url(r'^aulas/edicion/modificar/(?P<id>\d+)$', views.aulas_edicion_modificar),
     url(r'^aulas/edicion/eliminar/(?P<id>\d+)$', views.aulas_edicion_eliminar),
 
-    url(r'^grupos/nuevo$', views.grupos_nuevo),
-    url(r'^grupos/nuevo/crear$', views.grupos_nuevo_crear),
-    url(r'^grupos/$', views.grupos),
-    url(r'^grupos/edicion/(?P<id>\d+)$', views.grupos_edicion),
-    url(r'^grupos/edicion/modificar/(?P<id>\d+)$', views.grupos_edicion_modificar),
-    url(r'^grupos/edicion/eliminar/(?P<id>\d+)$', views.grupos_edicion_eliminar),
+    # url(r'^grupos/nuevo$', views.grupos_nuevo),
+    # url(r'^grupos/nuevo/crear$', views.grupos_nuevo_crear),
+    # url(r'^grupos/$', views.grupos),
+    # url(r'^grupos/edicion/(?P<id>\d+)$', views.grupos_edicion),
+    # url(r'^grupos/edicion/modificar/(?P<id>\d+)$', views.grupos_edicion_modificar),
+    # url(r'^grupos/edicion/eliminar/(?P<id>\d+)$', views.grupos_edicion_eliminar),
     url(r'^verificarPin/(?P<pin>\d+)$', views.verificarPin),
     url(r'^registroHuella/(?P<pin>\d+)$', views.registroHuella),
     url(r'^scheduler/$', views.scheduler),
+    url(r'^ciclo_escolar/$', views.ciclo_escolar),
+    url(r'^pruebas/$', views.Horarios.as_view()),
+    url(r'^logginOut/$', views.logout_fin),
 #    url(r'^horarios/$', views.horarios),
 #    url(r'^horarios/nuevo/(?P<id>\d+)$', views.horarios_nuevo),
 #    url(r'^horarios/edicion/(?P<id>\d+)$', views.horarios_edicion),
