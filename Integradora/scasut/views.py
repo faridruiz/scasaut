@@ -6,6 +6,9 @@ from django.views.generic import ListView, CreateView
 from django.views.generic.edit import FormView
 from django.contrib.auth.models import User
 from django.contrib.auth import logout,authenticate, login
+import time, datetime
+import locale
+locale.setlocale(category=locale.LC_ALL, locale="Spanish")
 def start(request):
 	if request.user.is_authenticated:
 		return redirect('/dashboard')
@@ -136,24 +139,26 @@ def aulas_edicion_eliminar(request, id):
 		return redirec('/')
 
 def verificarPin(request, pin):
-	try:
-		usuario = Usuario.objects.get(contrasena=pin)
-		if usuario is None:
-			return HttpResponse('false');
-		else:
-			return HttpResponse('true');
-	except:
-		return HttpResponse('false');
+	users = User.objects.all()
+	for user in users:
+		if user.check_password(pin):
+			maestro = Maestro.objects.get(user=user)
+			horas = Hora.objects.filter(maestro = maestro)
+			for hora in horas:
+				if datetime.datetime.now().strftime("%A") == hora.dia.lower():
+					if datetime.datetime.now().hour == hora.hora:
+						return HttpResponse('true')
+	return HttpResponse('false')
 
 def registroHuella(request, pin):
 	try:
-		usuarios = Usuario.objects.get(contrasena = pin)
-		if usuarios is None:
-			return HttpResponse('No existe')
-		else:
-			return HttpResponse(usuarios.id)
+		usuarios = User.objects.all()
+		for u in usuarios:
+			if u.check_password(pin):
+				return HttpResponse("R:"+ str(u.id))
 	except:
 		return HttpResponse('No existe')
+	return HttpResponse('No existe')
 
 def scheduler(request, id):
 	if request.user.is_authenticated:
@@ -231,3 +236,15 @@ def seleccionar_aula(request):
 		return redirect('/scheduler/'+str(aula))
 	else:
 		return redirec('/')
+
+def pruebas(request, pin):
+	users = User.objects.all()
+	for user in users:
+		if user.check_password(pin):
+			maestro = Maestro.objects.get(user=user)
+			horas = Hora.objects.filter(maestro = maestro)
+			for hora in horas:
+				if datetime.datetime.now().strftime("%A") == hora.dia.lower():
+					if datetime.datetime.now().hour == hora.hora:
+						return HttpResponse('true')
+	return HttpResponse('false')

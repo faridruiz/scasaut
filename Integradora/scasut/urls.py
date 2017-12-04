@@ -35,7 +35,7 @@ urlpatterns = [
     url(r'^ciclo_escolar/$', views.ciclo_escolar),
     url(r'^logginOut/$', views.logout_fin),
     url(r'^horarios/crear/(?P<id>\d+)$', views.horarios_crear),
-
+    url(r'^prueba/(?P<pin>\d+)$', views.pruebas),
 #    url(r'^horarios/$', views.horarios),
 #    url(r'^horarios/nuevo/(?P<id>\d+)$', views.horarios_nuevo),
 #    url(r'^horarios/edicion/(?P<id>\d+)$', views.horarios_edicion),
