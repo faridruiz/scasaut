@@ -6,12 +6,17 @@ from django.views.generic import ListView, CreateView
 from django.views.generic.edit import FormView
 from django.contrib.auth.models import User
 from django.contrib.auth import logout,authenticate, login
-
 def start(request):
-	return redirect('/login')
+	if request.user.is_authenticated:
+		return redirect('/dashboard')
+	else:
+		return redirect('/login')
 
 def login_inicio(request):
-    return render(request, 'SCASA-UT/index.html')
+	if request.user.is_authenticated:
+		return redirect('/dashboard')
+	else:
+		return render(request, 'SCASA-UT/index.html')
 
 def logout_fin(request):
 	logout(request)
@@ -40,10 +45,11 @@ def usuarios_nuevo(request):
 	return render(request, 'SCASA-UT/docs/crud/usuarios/create.html', {'maestros': Maestro.objects.all()})
 
 def usuarios_nuevo_crear(request):
-	user = User.objects.create_user(request.POST['usuario'], '' ,request.POST['contrasena'])
+	user = User.objects.create_user(request.POST['usuario'], 'pruebas@pruebas.com' ,request.POST['contrasena'])
 	maestro = Maestro(nombre = request.POST['maestro'], user = user)
 	maestro.save()
 	return redirect('/usuarios')
+
 
 def usuarios(request):
 	if request.user.is_authenticated:
@@ -129,36 +135,6 @@ def aulas_edicion_eliminar(request, id):
 	else:
 		return redirec('/')
 
-# def grupos_nuevo(request):
-# 	return render(request, 'SCASA-UT/docs/crud/grupos/create.html')
-
-# def grupos_nuevo_crear(request):
-# 	grupo = Grupo(
-# 		nombre=request.POST['username'],
-# 		descripcion=request.POST['email'],
-# 	)
-# 	grupo.save()
-# 	return redirect('/grupos')
-
-# def grupos(request):
-# 	return render(request, 'SCASA-UT/docs/crud/grupos/update.html', {'grupos': Grupo.objects.all()})
-
-# def grupos_edicion(request, id):
-# 	grupo = Grupo.objects.get(id=id)
-# 	return render(request, 'SCASA-UT/docs/crud/grupos/editform.html', {'grupo': grupo})
-
-# def grupos_edicion_modificar(request, id):
-# 	grupo = Grupo.objects.get(id=id)
-# 	grupo.nombre = request.POST['username']
-# 	grupo.descripcion = request.POST['email']
-# 	grupo.save()
-# 	return redirect('/grupos')
-
-# def grupos_edicion_eliminar(request, id):
-# 	grupo = Grupo.objects.get(id=id)
-# 	grupo.delete()
-# 	return redirect('/grupos')
-
 def verificarPin(request, pin):
 	try:
 		usuario = Usuario.objects.get(contrasena=pin)
@@ -179,47 +155,79 @@ def registroHuella(request, pin):
 	except:
 		return HttpResponse('No existe')
 
-def scheduler(request):
-	try:
-		aulas = Aula.objects.all()
-		maestros = Maestro.objects.all()
-	except Exception as e:
-		raise
-	else:
-		pass
-	finally:
-		pass
-	DiaSemana = ['Lunes',
-    'Martes',
-    'Miercoles',
-    'Jueves',
-    'Viernes',
-    'Sabado',
-    'Domingo']
-
-	numeroHoras = []
-	for i in range(8,19):
-		numeroHoras.append(i)
-	return render(request, 'SCASA-UT/docs/crud/horarios/scheduler.html', {'horas': numeroHoras, 'dias': DiaSemana, 'aulas': aulas,'maestros':maestros})
-
-class Horarios(CreateView):
-	model = Hora
-	fields = ['hora','idmaestro','idaula']
-	template_name = 'SCASA-UT/docs/crud/horarios/scheduler.html'
-
-	def get_context_data(self, **kwargs):
+def scheduler(request, id):
+	if request.user.is_authenticated:
+		iden = id
+		if id in ["0"]:
+			aulas = Aula.objects.all()
+			for aula in aulas:
+				idaula=aula.id
+				break
+			return redirect('/scheduler/'+str(idaula))
 		try:
 			aulas = Aula.objects.all()
 			maestros = Maestro.objects.all()
 		except Exception as e:
 			raise
-		else:
-			pass
-		finally:
-			pass
-		DiaSemana = ['Lunes', 'Martes', 'Miercoles', 'Jueves', 'Viernes', 'Sabado', 'Domingo']
+
+		DiaSemana = ['Lunes','Martes','Miercoles','Jueves','Viernes','Sabado','Domingo']
+
+		try:
+			aula = Aula.objects.get(id=id)
+		except:
+			return redirect('/scheduler/0')
+		Lunes = Hora.objects.filter(aula=aula, dia='Lunes').values()
+		Martes = Hora.objects.filter(aula=aula,dia='Martes').values()
+		Miercoles = Hora.objects.filter(aula=aula,dia='Miercoles').values()
+		Jueves = Hora.objects.filter(aula=aula,dia='Jueves').values()
+		Viernes = Hora.objects.filter(aula=aula,dia='Viernes').values()
+		Sabado = Hora.objects.filter(aula=aula,dia='Sabado').values()
+		Domingo = Hora.objects.filter(aula=aula,dia='Domingo').values()
+		
+
 		numeroHoras = []
-		for i in range(8,9):
+		for i in range(8,19):
 			numeroHoras.append(i)
-		context = {'aulas':aulas, 'horas':numeroHoras, 'dias':DiaSemana, 'maestros':maestros}
-		return  context
+		return render(request, 'SCASA-UT/docs/crud/horarios/scheduler.html', {
+			'horas': numeroHoras,
+			'dias': DiaSemana,
+			'aulas': aulas,
+			'maestros':maestros,
+			'Lunes':Lunes,
+			'Martes':Martes,
+			'Miercoles':Miercoles,
+			'Jueves':Jueves,
+			'Viernes':Viernes,
+			'Sabado':Sabado,
+			'Domingo':Domingo,
+			'aulaseleccionada':aula,
+			})
+	else:
+		return redirect('/')
+
+def horarios_crear(request, id):
+	if request.user.is_authenticated:		
+		aula = Aula.objects.get(id=id)
+		maestro = Maestro.objects.get(id=request.POST['maestro'])
+		try:
+			horario = Hora.objects.get(aula = aula, hora = request.POST['hora'], dia=request.POST['dia'])
+			if horario.nombre is None:
+				nuevo_horario = Hora(aula=aula, maestro=maestro, hora=request.POST['hora'], dia=request.POST['dia'], nombre=maestro.nombre)
+				nuevo_horario.save()
+				return redirect('/scheduler/'+str(id))
+			else:
+				horario.maestro = maestro
+				horario.nombre = maestro.nombre
+				horario.save()
+			return redirect('/scheduler/'+str(id))
+		except:
+			nuevo_horario = Hora(aula=aula, maestro=maestro, hora=request.POST['hora'], dia=request.POST['dia'], nombre=maestro.nombre)
+			nuevo_horario.save()		
+			return redirect('/scheduler/'+str(id))
+	
+def seleccionar_aula(request):
+	if request.user.is_authenticated:
+		aula = request.POST['aula']
+		return redirect('/scheduler/'+str(aula))
+	else:
+		return redirec('/')

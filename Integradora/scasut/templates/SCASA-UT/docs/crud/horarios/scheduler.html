@@ -1,86 +1,128 @@
 {% include "SCASA-UT\docs\encabezado.html" %}    
 {% include "SCASA-UT\docs\menu-lateral.html" %}  
 {% load staticfiles %}
-<form method="post">{% csrf_token %}
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="{% static 'css/scheduler.css' %}">
-  <div style="position:absolute;width:94%; padding-left: 10%;left:5%;bottom:0;top:80;padding-top: 0px;height: 600px;">
-    <div class="control-group">
-      <select class="form-control" id="sel1" style="width: 20%;margin-bottom:10px;">
+{% load filtro_dias %}
 
-        {% for aula in aulas %}
-        <option id="idaula" name="idaula" value="{{aula.id}}">{{aula.nombre}}</option>        
-        {% endfor %}
-      </select>
-      <!-- Button -->
-      <div class="controls" style="width: 20%;position:absolute;top:0%; left:30%;">
-        <input type="submit" class="btn" text="Guardar">
-      </div>
-    </div>
-    <table>
-      <thead>
-        <tr>
-          <th></th>
-          <th>
-            <span class="long" align="center">Lunes</span>
-            <span class="short">Lun</span>
-          </th>
-          <th>
-            <span class="long">Martes</span>
-            <span class="short">Mar</span>
-          </th>
-          <th>
-            <span class="long" align="center">Miércoles</span>
-            <span class="short" >Mier</span>
-          </th>
-          <th>
-            <span class="long" align="center">Jueves</span>
-            <span class="short">Jue</span>
-          </th>
-          <th>
-            <span class="long" align="center">Viernes</span>
-            <span class="short">Vie</span>
-          </th>
-          <th>
-            <span class="long" align="center">Sábado</span>
-            <span class="short">Sab</span>
-          </th>
-          <th>
-            <span class="long" align="center">Domingo</span>
-            <span class="short">Dom</span>
-          </th>
-        </tr>
-      </thead>
-      {% for hora in horas %}
-      <tbody>
-        <tr id="hora" value="hora" name="hora">
-          <td class="hour" rowspan="1"><span>{{hora}}:00 hs</span></td>
-          {% for dia in dias %}
-          <td class="hour">
-            <select style="width:80%;">
-              <option selected="selected" >Seleccione maestro</option>
-              {% for maestro in maestros%}
-              <option id="idmaestro" name="idmaestro" value="{{maestro.id}}">{{maestro.nombre}}</option>
-              {% endfor %}
-            </select>
-            <div>              
-              <i class="fa fa-check" aria-hidden="true" >
 
-                <button type="button" onclick="myFunction()">Submit</button>
-              </i>
-            </div>
-            <!-- <select style="width:40%;">
-              <option selected="selected">Seleccione grupo</option>
-              {% for grupo in grupos%}
-              <option id="idgrupo" name="idgrupo" value="{{grupo.id}}">{{grupo.nombre}}</option>
-              {% endfor %}
-            </select> -->
-          </td>
-          {% endfor %}
-        </tr>
-      </tbody>
+<link rel="stylesheet" href="{% static 'css/scheduler.css' %}">
 
-      {% endfor %}
-    </table>
-  </div>
+<form method="post" action="/slcA/" style="position:absolute;width:20%; float:left;margin-left: 17%;">  {% csrf_token %}
+  <div class="form-group">
+    <label for="aula">Aula</label>
+    <select id="aula" name="aula" class="form-control" onchange="form.submit();">
+     {% for aula in aulas %}
+     <option value="{{ aula.id }}" {% if aula == aulaseleccionada %}selected{% endif %}>{{aula.nombre}}</option>
+     {% endfor %}
+   </select>
+ </div>
 </form>
+<form method="post" action="/horarios/crear/{{aulaseleccionada.id}}" style="width:20%; float:left;margin-left: 17%;padding-top: 5%;">
+  {% csrf_token %}  
+  <div class="form-group">
+    <label for="maestro">Maestro</label>
+    <select id="maestro" name="maestro" class="form-control">
+      {% for maestro in maestros%}
+      <option value="{{maestro.id}}">{{maestro.nombre}}</option>
+      {% endfor %}
+    </select>
+  </div>
+  <div class="form-group">  
+    <label for="dia">Dia</label>
+    <select id="dia" name="dia" class="form-control">
+     {% for dia in dias %}
+     <option value="{{dia}}">{{dia}}</option>
+     {% endfor %}
+   </select>
+ </div>
+ <div class="form-group">  
+  <label for="hora">Hora</label>
+  <select id="hora" name="hora" class="form-control">
+   {% for hora in horas %}
+   <option value="{{hora}}">{{hora}}:00 hs.</option>
+   {% endfor %}
+ </select>
+</div>
+
+<div class="form-group" align="center">
+  <button class="btn btn-primary fa fa-check monBouton" style="width:30%" aria-hidden="true">Guardar</button>
+</div>
+</form>
+
+<div style="width:60%; padding-top: 0px;height: 100px;float:right;margin-right: 5px;" align="right">
+  <table>
+    <thead>
+      <tr>
+        <th></th>
+        <th>
+          <span class="long" align="center">Lunes</span>
+          <span class="short">Lun</span>
+        </th>
+        <th>
+          <span class="long">Martes</span>
+          <span class="short">Mar</span>
+        </th>
+        <th>
+          <span class="long" align="center">Miércoles</span>
+          <span class="short" >Mier</span>
+        </th>
+        <th>
+          <span class="long" align="center">Jueves</span>
+          <span class="short">Jue</span>
+        </th>
+        <th>
+          <span class="long" align="center">Viernes</span>
+          <span class="short">Vie</span>
+        </th>
+        <th>
+          <span class="long" align="center">Sábado</span>
+          <span class="short">Sab</span>
+        </th>
+        <th>
+          <span class="long" align="center">Domingo</span>
+          <span class="short">Dom</span>
+        </th>
+      </tr>
+    </thead>
+    {% for hora in horas %}
+    <tbody>
+      <tr id="hora" value="hora" name="hora">
+        <td class="hour" rowspan="1"><span>{{hora}}:00 hs</span></td>
+        {% for dia in dias %}          
+        <td class="hour">
+          {% if dia == 'Lunes' %}
+          {% for diafiltrador in Lunes|in_category:hora %}
+          {{diafiltrador.nombre}}
+          {% endfor %}
+          {% elif dia == 'Martes' %}
+          {% for diafiltrador in Martes|in_category:hora %}
+           {{diafiltrador.nombre}}
+          {% endfor %}
+          {% elif dia == 'Miercoles' %}
+          {% for diafiltrador in Miercoles|in_category:hora %}
+           {{diafiltrador.nombre}}
+          {% endfor %}
+          {% elif dia == 'Jueves' %}
+          {% for diafiltrador in Jueves|in_category:hora %}
+           {{diafiltrador.nombre}}
+          {% endfor %}
+          {% elif dia == 'Viernes' %}
+          {% for diafiltrador in Viernes|in_category:hora %}
+           {{diafiltrador.nombre}}
+          {% endfor %}
+          {% elif dia == 'Sabado' %}
+          {% for diafiltrador in Sabado|in_category:hora %}
+           {{diafiltrador.nombre}}
+          {% endfor %}
+          {% elif dia == 'Domingo' %}
+          {% for diafiltrador in Domingo|in_category:hora %}
+           {{diafiltrador.nombre}}
+          {% endfor %}
+          {% endif %}
+        </td>
+        {% endfor %}
+      </tr>
+    </tbody>
+
+    {% endfor %}
+  </table>
+</div>

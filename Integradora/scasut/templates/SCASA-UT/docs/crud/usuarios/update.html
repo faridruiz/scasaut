@@ -1,5 +1,9 @@
 {% include "SCASA-UT\docs\encabezado.html" %}    
 {% include "SCASA-UT\docs\menu-lateral.html" %}   
+{% load filtro_dias%}
+
+{% load staticfiles %}
+
 <table  style="width:100%;">
   <tr style="width:100%;">
     <td style="width:61px;">
@@ -44,7 +48,7 @@
                       </td>
                       <td class="hidden-xs">{{usr.id}}</td>
                       <td>{{usr.username}}</td>
-                      <td><a href="#">Ver</a></td>
+                      <td><a class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Ver</a></td>
                     </tr>
                     {% endfor %}
                   </tbody>
@@ -77,3 +81,106 @@
         </td>
       </tr>
     </table>
+<!--     <div class="container" style="width:80%!important">
+
+      
+      <div class="modal fade" id="myModal" role="dialog">
+        <div class="modal-dialog">
+
+          
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal">&times;</button>
+              <h4 class="modal-title">Horario de Maestro</h4>
+            </div>
+            <div class="modal-body">
+
+<link rel="stylesheet" href="{% static 'css/scheduler.css' %}">
+              <div style="width:100%; padding-top: 0px;height: 600px;float:right;margin-right: 5px;" align="right">
+                <table>
+                  <thead>
+                    <tr>
+                      <th></th>
+                      <th>
+                        <span class="long" align="center">Lunes</span>
+                        <span class="short">Lun</span>
+                      </th>
+                      <th>
+                        <span class="long">Martes</span>
+                        <span class="short">Mar</span>
+                      </th>
+                      <th>
+                        <span class="long" align="center">Miércoles</span>
+                        <span class="short" >Mier</span>
+                      </th>
+                      <th>
+                        <span class="long" align="center">Jueves</span>
+                        <span class="short">Jue</span>
+                      </th>
+                      <th>
+                        <span class="long" align="center">Viernes</span>
+                        <span class="short">Vie</span>
+                      </th>
+                      <th>
+                        <span class="long" align="center">Sábado</span>
+                        <span class="short">Sab</span>
+                      </th>
+                      <th>
+                        <span class="long" align="center">Domingo</span>
+                        <span class="short">Dom</span>
+                      </th>
+                    </tr>
+                  </thead>
+                  {% for hora in horas %}
+                  <tbody>
+                    <tr id="hora" value="hora" name="hora">
+                      <td class="hour" rowspan="1"><span>{{hora}}:00 hs</span></td>
+                      {% for dia in dias %}          
+                      <td class="hour">
+                        {% if dia == 'Lunes' %}
+                        {% for diafiltrador in Lunes|in_category:hora %}
+                        {{diafiltrador.nombre}}
+                        {% endfor %}
+                        {% elif dia == 'Martes' %}
+                        {% for diafiltrador in Martes|in_category:hora %}
+                        {{diafiltrador.nombre}}
+                        {% endfor %}
+                        {% elif dia == 'Miercoles' %}
+                        {% for diafiltrador in Miercoles|in_category:hora %}
+                        {{diafiltrador.nombre}}
+                        {% endfor %}
+                        {% elif dia == 'Jueves' %}
+                        {% for diafiltrador in Jueves|in_category:hora %}
+                        {{diafiltrador.nombre}}
+                        {% endfor %}
+                        {% elif dia == 'Viernes' %}
+                        {% for diafiltrador in Viernes|in_category:hora %}
+                        {{diafiltrador.nombre}}
+                        {% endfor %}
+                        {% elif dia == 'Sabado' %}
+                        {% for diafiltrador in Sabado|in_category:hora %}
+                        {{diafiltrador.nombre}}
+                        {% endfor %}
+                        {% elif dia == 'Domingo' %}
+                        {% for diafiltrador in Domingo|in_category:hora %}
+                        {{diafiltrador.nombre}}
+                        {% endfor %}
+                        {% endif %}
+                      </td>
+                      {% endfor %}
+                    </tr>
+                  </tbody>
+
+                  {% endfor %}
+                </table>
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+    </div> -->
