@@ -30,6 +30,7 @@
     <label for="dia">Dia</label>
     <select id="dia" name="dia" class="form-control">
      {% for dia in dias %}
+
      <option value="{{dia}}">{{dia}}</option>
      {% endfor %}
    </select>
@@ -53,34 +54,51 @@
     <thead>
       <tr>
         <th></th>
+        {% if configuracion.Lunes %}
         <th>
           <span class="long" align="center">Lunes</span>
           <span class="short">Lun</span>
         </th>
+        {% endif %}
+        {% if configuracion.Martes %}
         <th>
           <span class="long">Martes</span>
           <span class="short">Mar</span>
         </th>
+        {% endif %}
+        {% if configuracion.Miercoles %}
         <th>
           <span class="long" align="center">Miércoles</span>
           <span class="short" >Mier</span>
+          
         </th>
+        {% endif %}
+        {% if configuracion.Jueves %}
         <th>
           <span class="long" align="center">Jueves</span>
           <span class="short">Jue</span>
-        </th>
+        </th>      
+        {% endif %}  
+        {% if configuracion.Viernes %}
         <th>
           <span class="long" align="center">Viernes</span>
           <span class="short">Vie</span>
         </th>
+
+        {% endif %}
+        {% if configuracion.Sabado %}
         <th>
           <span class="long" align="center">Sábado</span>
           <span class="short">Sab</span>
         </th>
+        {% endif %}
+        {% if configuracion.Domingo %}
         <th>
           <span class="long" align="center">Domingo</span>
           <span class="short">Dom</span>
         </th>
+
+        {% endif %}
       </tr>
     </thead>
     {% for hora in horas %}
@@ -95,27 +113,27 @@
           {% endfor %}
           {% elif dia == 'Martes' %}
           {% for diafiltrador in Martes|in_category:hora %}
-           {{diafiltrador.nombre}}
+          {{diafiltrador.nombre}}
           {% endfor %}
           {% elif dia == 'Miercoles' %}
           {% for diafiltrador in Miercoles|in_category:hora %}
-           {{diafiltrador.nombre}}
+          {{diafiltrador.nombre}}
           {% endfor %}
           {% elif dia == 'Jueves' %}
           {% for diafiltrador in Jueves|in_category:hora %}
-           {{diafiltrador.nombre}}
+          {{diafiltrador.nombre}}
           {% endfor %}
           {% elif dia == 'Viernes' %}
           {% for diafiltrador in Viernes|in_category:hora %}
-           {{diafiltrador.nombre}}
+          {{diafiltrador.nombre}}
           {% endfor %}
           {% elif dia == 'Sabado' %}
           {% for diafiltrador in Sabado|in_category:hora %}
-           {{diafiltrador.nombre}}
+          {{diafiltrador.nombre}}
           {% endfor %}
           {% elif dia == 'Domingo' %}
           {% for diafiltrador in Domingo|in_category:hora %}
-           {{diafiltrador.nombre}}
+          {{diafiltrador.nombre}}
           {% endfor %}
           {% endif %}
         </td>

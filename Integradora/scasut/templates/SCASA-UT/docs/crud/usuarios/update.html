@@ -9,7 +9,7 @@
     <td style="width:61px;">
     </td>
     <td>      
-      <div class="container" style="width:95%; position:relative;left:2%;bottom:0px;" align="left">
+      <div class="container" style="width:95%; position:relative;left:2%;bottom:20px;" align="left">
         <div class="row">    
           <p></p>
           <h1 align="center">Catálogo de usuarios</h1>
@@ -17,7 +17,7 @@
           <p></p>
           <p></p>
           <p> </p><p> </p>    
-          <div class="col-md-10 col-md-offset-1">
+          <div class="col-md-10 col-md-offset-1" style="bottom:50px;">
             <div class="panel panel-default panel-table">
               <div class="panel-heading">
                 <div class="row">
@@ -34,7 +34,7 @@
                   <thead>
                     <tr>
                       <th><em class="fa fa-cog"></em></th>
-                      <th class="hidden-xs">ID</th>
+                      <th class="hidden-xs">Maestro</th>
                       <th>Usuario</th>
                       <th>Horario</th>
                     </tr> 
@@ -46,35 +46,34 @@
                         <a href="/usuarios/edicion/{{ usr.id }}" class="btn btn-default"><em class="fa fa-pencil"></em></a>
                         <a class="btn btn-danger" href="/usuarios/edicion/eliminar/{{ usr.id }}"><em class="fa fa-trash"></em></a>
                       </td>
-                      <td class="hidden-xs">{{usr.id}}</td>
-                      <td>{{usr.username}}</td>
-                      <td><a class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Ver</a></td>
+                      <td class="hidden-xs">{{usr.nombre}}</td>
+                      <td>{{usr.user.username}}</td>
+                      <td><a class="btn btn-info btn-lg" onclick="new function(){window.open('/scheduler/ver/{{usr.id}}', '_blank');}" >Ver</a></td>
                     </tr>
                     {% endfor %}
                   </tbody>
                 </table>
 
               </div>
-              <div class="panel-footer">
-                <div class="row">
-                  <div class="col col-xs-4">Página 1 de 5
-                  </div>
-                  <div class="col col-xs-8">
-                    <ul class="pagination hidden-xs pull-right">
-                      <li><a href="#">1</a></li>
-                      <li><a href="#">2</a></li>
-                      <li><a href="#">3</a></li>
-                      <li><a href="#">4</a></li>
-                      <li><a href="#">5</a></li>
-                    </ul>
-                    <ul class="pagination visible-xs pull-right">
-                      <li><a href="#">«</a></li>
-                      <li><a href="#">»</a></li>
-                    </ul>
+
+                <div class="panel-footer">
+                  <div class="row">
+                    <div class="col col-xs-4">Página {{pagina_actual}} de {{num_page}}
+                    </div>
+                    <div class="col col-xs-8">
+                      <ul class="pagination hidden-xs pull-right">                    
+                        {% for pagina in paginado %}
+                        <li><a href="?page={{pagina}}">{{forloop.counter}}</a></li>
+                        {% endfor %}
+                      </ul>
+                      <ul class="pagination visible-xs pull-right">
+                        <li><a href="#">«</a></li>
+                        <li><a href="#">»</a></li>
+                      </ul>
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
 
           </div></div></div>
 
